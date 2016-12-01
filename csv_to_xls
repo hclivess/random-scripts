@@ -1,0 +1,94 @@
+Option Explicit
+Private Sub Auto_Open()
+  
+On Error GoTo Err1:
+ActiveWorkbook.Connections("actions_log").Delete
+ActiveWorkbook.Connections("incidents_log").Delete
+ActiveWorkbook.Names("actions_log").Delete
+ActiveWorkbook.Names("incidents_log").Delete
+Err1:
+
+    Range("A:A,B:B,C:C,D:D,E:E,F:F,G:G").Select
+    Selection.ClearContents
+
+    ActiveCell.FormulaR1C1 = "Unassigned actions"
+    Range("E1").Select
+    ActiveCell.FormulaR1C1 = "Unassigned incidents"
+    Range("E2").Select
+
+Dim MyFileName As String
+MyFileName = ThisWorkbook.Path & "\actions_log.csv"
+
+With ActiveSheet.QueryTables.Add(Connection:= _
+"TEXT;" & MyFileName, Destination:=Range("$A$3"))
+        
+        .Name = "log_1"
+        .FieldNames = True
+        .RowNumbers = False
+        .FillAdjacentFormulas = False
+        .PreserveFormatting = True
+        .RefreshOnFileOpen = False
+        .RefreshStyle = xlInsertDeleteCells
+        .SavePassword = False
+        .SaveData = True
+        .AdjustColumnWidth = True
+        .RefreshPeriod = 1
+        .TextFilePromptOnRefresh = False
+        .TextFilePlatform = 437
+        .TextFileStartRow = 1
+        .TextFileParseType = xlDelimited
+        .TextFileTextQualifier = xlTextQualifierDoubleQuote
+        .TextFileConsecutiveDelimiter = False
+        .TextFileTabDelimiter = True
+        .TextFileSemicolonDelimiter = True
+        .TextFileCommaDelimiter = False
+        .TextFileSpaceDelimiter = False
+        .TextFileColumnDataTypes = Array(1, 1, 1)
+        .TextFileTrailingMinusNumbers = True
+        .Refresh BackgroundQuery:=True
+        
+        End With
+        
+Dim MyFileName2 As String
+MyFileName2 = ThisWorkbook.Path & "\incidents_log.csv"
+
+With ActiveSheet.QueryTables.Add(Connection:= _
+"TEXT;" & MyFileName2, Destination:=Range("$E$3"))
+
+        .Name = "log_1"
+        .FieldNames = True
+        .RowNumbers = False
+        .FillAdjacentFormulas = False
+        .PreserveFormatting = True
+        .RefreshOnFileOpen = False
+        .RefreshStyle = xlInsertDeleteCells
+        .SavePassword = False
+        .SaveData = True
+        .AdjustColumnWidth = True
+        .RefreshPeriod = 1
+        .TextFilePromptOnRefresh = False
+        .TextFilePlatform = 437
+        .TextFileStartRow = 1
+        .TextFileParseType = xlDelimited
+        .TextFileTextQualifier = xlTextQualifierDoubleQuote
+        .TextFileConsecutiveDelimiter = False
+        .TextFileTabDelimiter = True
+        .TextFileSemicolonDelimiter = True
+        .TextFileCommaDelimiter = False
+        .TextFileSpaceDelimiter = False
+        .TextFileColumnDataTypes = Array(1, 1, 1)
+        .TextFileTrailingMinusNumbers = True
+        .Refresh BackgroundQuery:=True
+
+End With
+End Sub
+
+Sub Auto_Close()
+    If ThisWorkbook.Saved = False Then
+        ThisWorkbook.Save
+    End If
+End Sub
+
+
+
+
