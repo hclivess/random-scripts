@@ -1,3 +1,6 @@
+#cmd example: martingale.py 100000 2500 1000000 100 1
+
+
 import random
 import time
 f = open ("martingale.txt", 'w')
