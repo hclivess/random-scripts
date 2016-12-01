@@ -16,8 +16,11 @@ hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML,
        'Connection': 'keep-alive'}
 # set header
 
-request = requests.get(param.URL, verify=False, headers=hdr)
-geturl_readable = request.text
-word = re.findall(param.content, geturl_readable)
+try:
+    request = requests.get(param.URL, verify=False, headers=hdr)
+    geturl_readable = request.text
+    word = re.findall(param.content, geturl_readable)
 
-print word[0]
+    print word[0]
+except:
+    raise
