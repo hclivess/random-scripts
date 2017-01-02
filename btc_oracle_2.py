@@ -32,6 +32,8 @@ while i < backwards:
 
 
     term = geturl_readable_matches [-i:] #number sets age
+    print term
+    
     avg = 0
     for x in term:
         avg=avg+int(x)
@@ -59,21 +61,23 @@ while i < backwards:
 
     request2 = requests.get("http://api.coindesk.com/v1/bpi/currentprice/btc.json", headers=hdr)
     geturl_readable2 = request2.text
-    price = re.findall('rate":"(\d+\.\d+)', geturl_readable2)
-    print price[0]
+    price = re.findall('rate":"([\d\.\,]+)', geturl_readable2)
+
+    real_price = price[0].replace(",","")
+    print "Current price:" +str(real_price)
     print index
     #price
 
     if index > 0:
-        print "BTC will rise "+str(index)+"% in the following "+str(i)+" days ("+str(i/365)+" year(s)) to $" +str((float(price[0])+(float(price[0])*float(index))/100)) + " from current $" +price[0]
+        print "BTC will rise "+str(index)+"% in the following "+str(i)+" days ("+str(i/365)+" year(s)) to $" +str((float(real_price)+(float(real_price)*float(index))/100)) + " from current $" +real_price
     if index == 0:
         print "There will be no change"
     if index < 0:
-        print "Bitcoin price will fall "+str(index)+"% in the following "+str(i)+" days ("+str(i/365)+" year(s)) to $" +str((float(price[0])+(float(price[0])*float(index))/100)) + " from current $" +price[0]
+        print "Bitcoin price will fall "+str(index)+"% in the following "+str(i)+" days ("+str(i/365)+" year(s)) to $" +str((float(real_price)+(float(real_price)*float(index))/100)) + " from current $" +real_price
 
 
     logger = open("data.txt", 'a')
-    logger.write(str((float(price[0])+(float(price[0])*float(index))/100)) +"\n")
+    logger.write(str((float(real_price)+(float(real_price)*float(index))/100)) +"\n")
     logger.close()
     
     i = i+1
