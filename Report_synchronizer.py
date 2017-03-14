@@ -50,7 +50,7 @@ try:
                     name2 = name  # start replacing file names in a separate variable
                     name2 = name2[:-30] + "_" + last_month + "_" + year + ".pdf"  # cut ending, add new format, rename to previous month
                     name2 = name2.replace("Report_", "").replace("_Service", " Service")  # remove some underscores
-                    name2.replace(tuple[0], tuple[1])
+                    name2 = name2.replace(tuple[0], tuple[1])
 
                     app_log.info("Copying " + name2 + " to local drive")
                     copyfile("\\\\" + gateway + "\\reports\\" + name, "c:\\reports_dir\\" + customer + "\\" + year + "\\" + last_month + "\\" + name2)  # copy files to new location, under previously redefined names
