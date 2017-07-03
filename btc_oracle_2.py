@@ -32,7 +32,7 @@ while i < backwards:
 
 
     term = geturl_readable_matches [-i:] #number sets age
-    print term
+    print (term)
     
     avg = 0
     for x in term:
@@ -40,7 +40,7 @@ while i < backwards:
     avg=avg/len(term)
 
     predict = (int(i)*int(percent))/100
-    print "predict:"+str(predict)
+    print ("predict:"+str(predict))
 
     last = (geturl_readable_matches[-int(predict):])
     #x percent average
@@ -54,8 +54,8 @@ while i < backwards:
 
     #x percent average
 
-    print len(term)
-    print len(last)
+    print (len(term))
+    print (len(last))
 
     #price
 
@@ -64,16 +64,16 @@ while i < backwards:
     price = re.findall('rate":"([\d\.\,]+)', geturl_readable2)
 
     real_price = price[0].replace(",","")
-    print "Current price:" +str(real_price)
-    print index
+    print ("Current price:" +str(real_price))
+    print (index)
     #price
 
     if index > 0:
-        print "BTC will rise "+str(index)+"% in the following "+str(i)+" days ("+str(i/365)+" year(s)) to $" +str((float(real_price)+(float(real_price)*float(index))/100)) + " from current $" +real_price
+        print ("BTC will rise "+str(index)+"% in the following "+str(i)+" days ("+str(i/365)+" year(s)) to $" +str((float(real_price)+(float(real_price)*float(index))/100)) + " from current $" +real_price)
     if index == 0:
-        print "There will be no change"
+        print ("There will be no change")
     if index < 0:
-        print "Bitcoin price will fall "+str(index)+"% in the following "+str(i)+" days ("+str(i/365)+" year(s)) to $" +str((float(real_price)+(float(real_price)*float(index))/100)) + " from current $" +real_price
+        print ("Bitcoin price will fall "+str(index)+"% in the following "+str(i)+" days ("+str(i/365)+" year(s)) to $" +str((float(real_price)+(float(real_price)*float(index))/100)) + " from current $" +real_price)
 
 
     logger = open("data.txt", 'a')
