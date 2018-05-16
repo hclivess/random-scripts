@@ -1,6 +1,6 @@
-import re
 import socket
 import requests
+import json
 
 ###
 #Script takes an average of last x volumes on localbitcoins and a percentage of that (starting from today and going to the past) to get a growth factor, adjust percentage to make more precise
@@ -36,7 +36,7 @@ for x in term:
 avg=avg/len(term)
 
 predict = (int(backwards)*int(percent))/100
-print "predict:"+str(predict)
+print ("predict: {}".format(predict))
 
 last = (geturl_readable_matches[-int(predict):])
 #x percent average
@@ -50,21 +50,21 @@ index = 100 * (int(avg2) - int(avg)) / int(avg)
 
 #x percent average
 
-print len(term)
-print len(last)
+print (len(term))
+print (len(last))
 
 #price
 
 request2 = requests.get("http://api.coindesk.com/v1/bpi/currentprice/btc.json", headers=hdr)
 geturl_readable2 = request2.text
-price = re.findall('rate":"(\d+\.\d+)', geturl_readable2)
-print price[0]
-print index
+price = json.loads()
+print ("price[0]",price[0])
+print (index)
 #price
 
 if index > 0:
-    print "BTC will rise "+str(index)+"% in the following "+str(backwards)+" days ("+str(backwards/365)+" year(s)) to $" +str((float(price[0])+(float(price[0])*float(index))/100)) + " from current $" +price[0]
+    print ("BTC will rise {}% in the following {} days ({} year(s)) to ${} from current ${}".format(index,backwards,backwards/365,float(price[0])+(float(price[0])*float(index))/100,price[0]))
 if index == 0:
-    print "There will be no change"
+    print ("There will be no change")
 if index < 0:
-    print "Bitcoin price will fall "+str(index)+"% in the following "+str(backwards)+" days ("+str(backwards/365)+" year(s)) to $" +str((float(price[0])+(float(price[0])*float(index))/100)) + " from current $" +price[0]
+    print ("Bitcoin price will fall {}% in the following {} days ({} year(s)) to ${} from current ${}".format(index,backwards,backwards/365,float(price[0])+(float(price[0])*float(index))/100,price[0]))
